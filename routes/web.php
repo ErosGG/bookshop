@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::domain('admin.'.env('APP_DOMAIN'))
-    ->middleware('web')
+//Route::domain('admin.'.env('APP_DOMAIN'))
+//    ->middleware(['web', 'auth', 'admin',])
+//    ->group(base_path('routes/admin.php'));
+
+
+Route::prefix('/admin')
+//    ->middleware(['web',])
+        ->middleware(['web', 'auth', 'admin',])
     ->group(base_path('routes/admin.php'));
 
 
@@ -25,8 +31,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth'])->name('dashboard');
+
 
 require __DIR__.'/auth.php';

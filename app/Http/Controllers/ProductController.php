@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 
@@ -10,8 +12,9 @@ class ProductController extends Controller
 {
     public function index()
     {
+        auth()->check();
         return view('admin.products.index', [
-            'products' => Product::all()
+            'products' => Product::paginate(10),
         ]);
     }
 
@@ -19,24 +22,29 @@ class ProductController extends Controller
     public function create()
     {
 
+        return view('admin.products.create');
     }
 
 
-    public function store()
+    public function store(ProductStoreRequest $request): RedirectResponse
     {
+        $product = Product::create($request->validated());
 
+        return redirect()->route('admin.products.index');
     }
 
 
-    public function show()
+    public function show(Product $product)
     {
-
+        return view('admin.products.show', [
+            'product' => $product,
+        ]);
     }
 
 
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+        return view('admin.products.edit', ['product' => $product]);
     }
 
 
@@ -46,8 +54,10 @@ class ProductController extends Controller
     }
 
 
-    public function delete()
+    public function delete(Product $product)
     {
+        $product->delete();
 
+        return redirect()->route('admin.products.index');
     }
 }
