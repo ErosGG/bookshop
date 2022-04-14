@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('price');
             $table->unsignedSmallInteger('stock')->default(0);
             $table->boolean('highlighted')->default(false);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

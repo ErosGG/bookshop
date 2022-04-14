@@ -5,14 +5,10 @@
 @section('section', 'Productes')
 
 @section('content')
-{{--    <div class="card w-100 text-white bg-dark">--}}
-    <div class="card max-w-100 m-4 bg-dark text-white">
-        <div class="card-body p-4">
+    <x-card.card>
+        <x-card.body>
 
-            <!-- Create Product button -->
-            <a class="btn btn-primary"
-               href="{{ route('admin.products.create') }}"
-            ><i class="bi bi-plus-circle"></i> Nou</a>
+            <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
 
             <x-table.table>
                 <x-table.head>
@@ -48,7 +44,9 @@
                 </x-table.foot>
             </x-table.table>
 
-            {{ $products->links() }}
-        </div>
-    </div>
+            <x-table.paginator :models="$products"></x-table.paginator>
+
+        </x-card.body>
+    </x-card.card>
+
 @endsection

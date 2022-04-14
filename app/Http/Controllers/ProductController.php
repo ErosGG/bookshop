@@ -13,6 +13,7 @@ class ProductController extends Controller
     public function index()
     {
         auth()->check();
+
         return view('admin.products.index', [
             'products' => Product::paginate(10),
         ]);
@@ -21,14 +22,13 @@ class ProductController extends Controller
 
     public function create()
     {
-
         return view('admin.products.create');
     }
 
 
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        $product = Product::create($request->validated());
+        Product::create($request->validated());
 
         return redirect()->route('admin.products.index');
     }
