@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+
 
 class CategorySeeder extends Seeder
 {
@@ -14,6 +18,16 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $name = 'Història';
+
+        Category::factory([
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'description' => 'Llibres de temàtica històrica',
+        ])->create();
+
+        Category::factory()
+            ->count(4)
+            ->create();
     }
 }

@@ -15,17 +15,20 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->string('author');
+            $table->decimal('price');
+            $table->unsignedSmallInteger('stock')->default(0);
+            $table->boolean('highlighted')->default(false);
             $table->unsignedSmallInteger('year')->nullable();
             $table->string('publisher')->nullable();
             $table->string('place')->nullable();
             $table->string('isbn')->nullable();
             $table->string('series')->nullable();
-            $table->decimal('price');
-            $table->unsignedSmallInteger('stock')->default(0);
-            $table->boolean('highlighted')->default(false);
             $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

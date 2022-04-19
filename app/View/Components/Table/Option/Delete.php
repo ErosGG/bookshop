@@ -8,6 +8,8 @@ use Illuminate\View\Component;
 class Delete extends Component
 {
     public string $href;
+    public string $method;
+    public string $enctype;
 
 
     /**
@@ -15,9 +17,11 @@ class Delete extends Component
      *
      * @return void
      */
-    public function __construct(string $href = '')
+    public function __construct(string $href = '', string $method = "delete", string $enctype = "")
     {
         $this->href = $href;
+        $this->method = $method;
+        $this->enctype = $enctype;
     }
 
 

@@ -5,11 +5,12 @@ namespace App\View\Components\Form;
 use Illuminate\View\Component;
 
 
-class InputSwitch extends Component
+class InputRadioInline extends Component
 {
     public string $name;
     public string $label;
     public string $id;
+    public string $value;
     public bool $checked;
 
 
@@ -18,11 +19,12 @@ class InputSwitch extends Component
      *
      * @return void
      */
-    public function __construct(string $id, string $label, string $name, bool $checked = false)
+    public function __construct(string $id, string $label, string $name, string $value, bool $checked = false)
     {
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
+        $this->value = $value;
         $this->checked = $checked;
     }
 
@@ -34,6 +36,6 @@ class InputSwitch extends Component
      */
     public function render()
     {
-        return view('components.form.input-switch');
+        return view('components.form.input-radio-inline');
     }
 }

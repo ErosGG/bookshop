@@ -10,6 +10,7 @@ class InputNumber extends Component
     public $label;
     public $placeholder;
     public $id;
+    public string $value;
 
 
     /**
@@ -17,12 +18,13 @@ class InputNumber extends Component
      *
      * @return void
      */
-    public function __construct(string $id, string $label, string $name, string $placeholder)
+    public function __construct(string $id, string $label, string $name, string $placeholder, string $value = '')
     {
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
         $this->placeholder = $placeholder;
+        $this->value = $value;
     }
 
 

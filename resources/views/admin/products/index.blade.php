@@ -4,7 +4,12 @@
 
 @section('section', 'Productes')
 
+@section('navbar.buttons')
+    <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
+@endsection
+
 @section('content')
+
     <x-card.card>
         <x-card.body>
 
@@ -26,10 +31,12 @@
                             <x-table.td>{{ $product->author }}</x-table.td>
                             <x-table.td>{{ $product->year }}</x-table.td>
                             <x-table.td>
-                                <x-table.option.details href="{{ route('admin.products.show', ['product' => $product]) }}"></x-table.option.details>
-                                <x-table.option.edit href="{{ route('admin.products.edit', ['product' => $product]) }}"></x-table.option.edit>
-                                <x-table.option.delete href="{{ route('admin.products.delete', ['product' => $product]) }}"></x-table.option.delete>
-                                <x-table.option.restore href="{{ route('admin.products.restore', ['product' => $product]) }}"></x-table.option.restore>
+                                <div class="d-flex flex-row justify-content-start align-items-center">
+                                    <x-table.option.details href="{{ route('admin.products.show', ['product' => $product]) }}"></x-table.option.details>
+                                    <x-table.option.edit href="{{ route('admin.products.edit', ['product' => $product]) }}"></x-table.option.edit>
+                                    <x-table.option.delete href="{{ route('admin.products.delete', ['product' => $product]) }}"></x-table.option.delete>
+{{--                                <x-table.option.restore href="{{ route('admin.products.restore', ['product' => $product]) }}"></x-table.option.restore>--}}
+                                </div>
                             </x-table.td>
                         </x-table.tr>
                     @endforeach

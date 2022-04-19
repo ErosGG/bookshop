@@ -1,6 +1,6 @@
-<form method="{{ $method }}" action="{{ $action }}" enctype="{{$enctype}}">
-    @if($method !== 'GET') @csrf @endif
-    @if($method === 'POST' || $method === 'PUT' || $method === 'PATCH')
+<form method="{{ $method == 'get' ? 'get' : 'post' }}" action="{{ $action }}" enctype="{{$enctype}}">
+    @if($method != 'get') @csrf @endif
+    @if($method == 'post' || $method == 'put' || $method == 'patch')
         @method($method)
     @endif
     {{ $slot }}
