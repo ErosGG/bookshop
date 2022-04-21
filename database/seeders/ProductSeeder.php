@@ -35,7 +35,7 @@ class ProductSeeder extends Seeder
         ])->create();
 
         Product::factory()
-            ->count(20)
+            ->count(300)
             ->state(new Sequence(['category_id' => Category::all()->random()->id]))
             ->create();
     }

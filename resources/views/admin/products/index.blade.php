@@ -4,7 +4,8 @@
 
 @section('section', 'Productes')
 
-@section('navbar.buttons')
+@section('navbar-buttons')
+    <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
     <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
 @endsection
 
@@ -12,8 +13,6 @@
 
     <x-card.card>
         <x-card.body>
-
-            <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
 
             <x-table.table>
                 <x-table.head>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ProductFilter;
 use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Models\Product;
@@ -13,12 +14,14 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(): View
+    public function index(ProductFilter $filter): View
     {
         auth()->check();
 
+        $products = Product::filterBy($filter)->paginate(10);
+
         return view('admin.products.index', [
-            'products' => Product::paginate(10),
+            'products' => $products,
         ]);
     }
 
