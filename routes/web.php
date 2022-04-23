@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +23,102 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/admin')
 //    ->middleware(['web',])
-        ->middleware(['web', 'auth', 'admin',])
+    ->middleware(['web', 'auth', 'admin',])
     ->group(base_path('routes/admin.php'));
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+
+Route::get('/', [ShopController::class, 'index'])->name('shop');
+
+
+Route::get('/home', [ShopController::class, 'index'])->name('shop.home');
+
+
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+
+
+Route::get('/search', [ShopController::class, 'search'])->name('shop.search');
+
+
+Route::get('/category/{category}', [ShopController::class, 'products'])->name('shop.category.products');
+
+
+Route::get('/product/{product}', [ShopController::class, 'product'])->name('shop.product.show');
+
+
+Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
+
+
+Route::post('/cart', [ShopController::class, 'addToCart'])->name('shop.cart.add');
+
+
+Route::get('/checkout', [ShopController::class, 'checkout'])
+    ->middleware(['auth',])
+    ->name('shop.checkout');
+
+
+Route::post('/checkout', [ShopController::class, 'payment'])
+    ->middleware(['auth',])
+    ->name('shop.payment');
+
+
+Route::get('/thankyou', [ShopController::class, 'thankyou'])
+    ->middleware(['auth',])
+    ->name('shop.thankyou');
+
+
+Route::get('/user/{user}/profile', [ShopController::class, 'profile'])
+    ->middleware(['auth',])
+    ->name('shop.user.profile');
+
+
+Route::get('/user/{user}/profile/edit', [ShopController::class, 'editProfile'])
+    ->middleware(['auth',])
+    ->name('shop.user.profile.edit');
+
+
+Route::post('/user/{user}/profile/update', [ShopController::class, 'updateProfile'])
+    ->middleware(['auth',])
+    ->name('shop.user.profile.update');
+
+
+Route::get('/user/{user}/orders', [ShopController::class, 'orders'])
+    ->middleware(['auth',])
+    ->name('shop.user.orders');
+
+
+Route::get('/user/{user}/orders/{order}', [ShopController::class, 'order'])
+    ->middleware(['auth',])
+    ->name('shop.user.order');
+
+
+Route::get('/user/{user}/orders/{order}/invoice', [ShopController::class, 'orderInvoice'])
+    ->middleware(['auth',])
+    ->name('shop.user.order.invoice');
+
+
+Route::get('/user/{user}/orders/{order}/receipt', [ShopController::class, 'orderReceipt'])
+    ->middleware(['auth',])
+    ->name('shop.user.order.receipt');
+
+
+Route::get('/user/{user}/orders/{order}/cancel', [ShopController::class, 'orderCancel'])
+    ->middleware(['auth',])
+    ->name('shop.user.order.cancel');
+
+
+Route::get('/user/{user}/orders/{order}/refund', [ShopController::class, 'orderRefund'])
+    ->middleware(['auth',])
+    ->name('shop.user.order.refund');
+
+
+Route::get('/user/{user}/orders/{order}/shipped', [ShopController::class, 'orderShipped'])
+    ->middleware(['auth',])
+    ->name('shop.user.order.shipped');
 
 
 //Route::get('/dashboard', function () {

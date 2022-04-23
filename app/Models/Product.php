@@ -14,6 +14,9 @@ class Product extends Model
     use HasFactory;
 
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'category_id',
         'title',
@@ -31,23 +34,41 @@ class Product extends Model
         'description',
     ];
 
+
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'highlighted' => 'bool',
     ];
 
 
+    /**
+     * @return BelongsTo
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
 
-    public function scopeFilterBy(Builder $query, ProductFilter $filter)
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeFilterBy(Builder $query): Builder
     {
-        $fields = ['title'];
+        $productFilter = new ProductFilter();
+
+        $fields = [
+            'title', 'author', 'price', 'stock',
+            'highlighted', 'year', 'publisher',
+            'place', 'isbn', 'series', 'description'
+        ];
 
         $data = request()->only($fields);
 
-        return $filter->applyTo($query, $data);
+        return $productFilter->applyTo($query, $data);
     }
 }

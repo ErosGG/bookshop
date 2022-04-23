@@ -5,8 +5,21 @@
 @section('section', 'Productes')
 
 @section('navbar-buttons')
+{{--    <x-form.form method="get" action="{{ route('admin.products.index') }}">--}}
+{{--        <x-form.input-text id="title_search" name="title" label="Cercador" placeholder="Cercador"></x-form.input-text>--}}
+{{--    </x-form.form>--}}
+    <x-button.filter></x-button.filter>
     <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
-    <x-button.add href="{{ route('admin.products.create') }}"></x-button.add>
+@endsection
+
+@section('collapsed-filters')
+    <div class="collapse" id="collapsed_filters">
+        <div class="card card-body bg-dark">
+            <x-form.form method="get" action="{{ route('admin.products.index') }}">
+                <x-form.input-text id="title_search" name="title" label="Cercador" placeholder="Cercador"></x-form.input-text>
+            </x-form.form>
+        </div>
+    </div>
 @endsection
 
 @section('content')

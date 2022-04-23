@@ -14,11 +14,11 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(ProductFilter $filter): View
+    public function index(): View
     {
         auth()->check();
 
-        $products = Product::filterBy($filter)->paginate(10);
+        $products = Product::filterBy()->paginate(10);
 
         return view('admin.products.index', [
             'products' => $products,

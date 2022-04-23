@@ -25,7 +25,7 @@ abstract class QueryFilter
 
         foreach ($this->valid as $key => $value) {
 
-            $query->applyFilter($query, $key, $value);
+            $query = $this->applyFilter($query, $key, $value);
         }
 
         return $query;
@@ -34,7 +34,7 @@ abstract class QueryFilter
 
     public function applyFilter($query, $name, $value)
     {
-        $method = Str::studly($name);
+        $method = 'filterBy' . Str::studly($name);
 
         if (method_exists($this, $method)) {
 

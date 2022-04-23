@@ -4,3 +4,4 @@
         @yield('navbar-buttons')
     </div>
 </div>
+@yield('collapsed-filters')
