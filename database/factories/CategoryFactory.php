@@ -25,6 +25,7 @@ class CategoryFactory extends Factory
             'slug' => Str::slug($name),
             'image' => 'https://picsum.photos/175/225',
             'description' => $this->faker->paragraph(1, true),
+            'highlighted' => $this->faker->boolean(5),
         ];
     }
 }

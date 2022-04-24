@@ -28,7 +28,7 @@ class ProductFactory extends Factory
             'author' => $this->faker->name(),
             'price' => $this->faker->randomFloat(2, 1, 10),
             'stock' => $this->faker->randomDigit(),
-            'highlighted' => $this->faker->boolean(1),
+            'highlighted' => $this->faker->boolean(5),
             'year' => $this->faker->year(),
             'publisher' => $this->faker->company(),
             'place' => $this->faker->country(),

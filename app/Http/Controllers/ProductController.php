@@ -64,7 +64,33 @@ class ProductController extends Controller
 
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
-        $product->update($request->validated());
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $relativePath = 'public/shop/uploads/images/products/';
+            $imageName = $product->slug . '.' . $image->getClientOriginalExtension();
+            $request->file('image')->storeAs($relativePath, $imageName);
+            $absolutePath = asset('storage/shop/uploads/images/products/' . $imageName);
+        } else {
+            $absolutePath = 'storage/shop/images/products/default/' . 'no-cover.jpg';
+        }
+
+        $data = collect($request->validated())->merge(['image' => $absolutePath]);
+
+        $product->update([
+            'title' => $request->title,
+            'slug' => Str::of($request->title)->slug(),
+            'author' => $request->author,
+            'year' => $request->year,
+            'publisher' => $request->publisher,
+            'place' => $request->place,
+            'isbn' => $request->isbn,
+            'series' => $request->series,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'highlighted' => $request->highlighted,
+            'description' => $request->description ?? null,
+            'image' => $absolutePath,
+        ]);
 
         return to_route('admin.products.index');
     }

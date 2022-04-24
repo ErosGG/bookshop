@@ -24,10 +24,11 @@ class CategorySeeder extends Seeder
             'name' => $name,
             'slug' => Str::slug($name),
             'description' => 'Llibres de temàtica històrica',
+            'highlighted' => true,
         ])->create();
 
         Category::factory()
-            ->count(4)
+            ->count(15)
             ->create();
     }
 }

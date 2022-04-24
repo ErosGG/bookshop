@@ -4,7 +4,8 @@ namespace App\View\Components\Form;
 
 use Illuminate\View\Component;
 
-class InputFile extends Component
+
+class Textarea extends Component
 {
     public string $id;
     public string $label;
@@ -25,6 +26,7 @@ class InputFile extends Component
         $this->value = $value;
     }
 
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -32,6 +34,6 @@ class InputFile extends Component
      */
     public function render()
     {
-        return view('components.form.input-file');
+        return view('components.form.textarea');
     }
 }

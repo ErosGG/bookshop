@@ -21,6 +21,8 @@
             <x-form.input-text id="series" name="series" label="Col·lecció" placeholder="Col·lecció"></x-form.input-text>
             <x-form.input-number id="price" name="price" label="Preu" placeholder="Preu"></x-form.input-number>
             <x-form.input-number id="stock" name="stock" label="Estoc" placeholder="Estoc"></x-form.input-number>
+            <x-form.input-file id="image" name="image" label="Imatge"></x-form.input-file>
+            <x-form.textarea id="description" name="description" label="Descripció" placeholder="Descripció"></x-form.textarea>
             <x-form.input-radio-inline id="highlighted" name="highlighted" label="Destacar" value="1"></x-form.input-radio-inline>
             <x-form.input-radio-inline id="no_highlighted" name="highlighted" label="No destacar" value="0" :checked="true"></x-form.input-radio-inline>
         </x-form.form>

@@ -38,6 +38,7 @@ class ProductUpdateRequest extends FormRequest
             'stock' => ['required', 'numeric', 'min:0'],
             'highlighted' => ['nullable', 'in:0,1'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'description' => ['nullable', 'string', 'max:10000'],
         ];
     }
 }

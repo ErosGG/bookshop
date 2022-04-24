@@ -15,14 +15,15 @@ class ShopController extends Controller
     public function index(): View
     {
         $highlightedProducts = Product::where('highlighted', true)->paginate(10);
-        $highlightedProducts = Product::paginate(10);
 
         $categories = Category::with('products')->get();
+
+        $highlightedCategories = $categories->where('highlighted', true);
 
         return view('shop.index', [
             'highlightedProducts' => $highlightedProducts,
             'categories' => $categories,
-            'highlightedCategories' => $categories,
+            'highlightedCategories' => $highlightedCategories,
         ]);
 //        return view('welcome');
     }

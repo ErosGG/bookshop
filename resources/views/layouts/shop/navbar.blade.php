@@ -32,7 +32,7 @@
                         <li><a class="dropdown-item" href="{{ route('shop.categories') }}">Totes les categories</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="nav-link px-2 link-dark"><i class="bi bi-cart me-1"></i>Carretó</a></li>
+                <li><a href="#" class="nav-link px-2 link-dark"><i class="bi bi-basket me-1"></i>Cistella</a></li>
             </ul>
 
 
