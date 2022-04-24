@@ -34,6 +34,7 @@ class ProductFactory extends Factory
             'place' => $this->faker->country(),
             'isbn' => $this->faker->unique()->isbn13(),
             'series' => $this->faker->optional(0.2)->sentence(2, true),
+            'image' => 'https://picsum.photos/175/225',
             'description' => $this->faker->paragraph(4, true),
         ];
     }

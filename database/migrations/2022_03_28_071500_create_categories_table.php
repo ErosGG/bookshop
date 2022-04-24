@@ -18,6 +18,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->boolean('highlighted')->default(false);
+            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -21,6 +21,7 @@
                 <x-form.input-text id="series" name="series" label="Col·lecció" placeholder="Col·lecció" value="{{ $product->series }}"></x-form.input-text>
                 <x-form.input-number id="price" name="price" label="Preu" placeholder="Preu" value="{{ $product->price }}"></x-form.input-number>
                 <x-form.input-number id="stock" name="stock" label="Estoc" placeholder="Estoc" value="{{ $product->stock }}"></x-form.input-number>
+                <x-form.input-file id="image" name="image" label="Imatge" value="{{ $product->image }}"></x-form.input-file>
                 <x-form.input-radio-inline id="highlighted" name="highlighted" label="Destacar" value="1" :checked="$product->highlighted"></x-form.input-radio-inline>
                 <x-form.input-radio-inline id="no_highlighted" name="highlighted" label="No destacar" value="0" :checked="!$product->highlighted"></x-form.input-radio-inline>
             </x-form.form>

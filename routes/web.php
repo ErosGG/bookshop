@@ -44,10 +44,13 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/search', [ShopController::class, 'search'])->name('shop.search');
 
 
-Route::get('/category/{category}', [ShopController::class, 'products'])->name('shop.category.products');
+Route::get('/category/{category:slug}', [ShopController::class, 'products'])->name('shop.category.products');
 
 
-Route::get('/product/{product}', [ShopController::class, 'product'])->name('shop.product.show');
+Route::get('/categories', [ShopController::class, 'categories'])->name('shop.categories');
+
+
+Route::get('/product/{product:slug}', [ShopController::class, 'product'])->name('shop.product.show');
 
 
 Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');

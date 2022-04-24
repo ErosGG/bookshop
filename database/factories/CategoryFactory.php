@@ -23,6 +23,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'slug' => Str::slug($name),
+            'image' => 'https://picsum.photos/175/225',
             'description' => $this->faker->paragraph(1, true),
         ];
     }

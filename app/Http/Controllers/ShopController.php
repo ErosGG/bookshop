@@ -8,19 +8,23 @@ use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
+
 class ShopController extends Controller
 {
 
     public function index(): View
     {
-        $highlightedProducts = Product::where('highlighted', true)->get();
+        $highlightedProducts = Product::where('highlighted', true)->paginate(10);
+        $highlightedProducts = Product::paginate(10);
 
         $categories = Category::with('products')->get();
 
         return view('shop.index', [
             'highlightedProducts' => $highlightedProducts,
             'categories' => $categories,
+            'highlightedCategories' => $categories,
         ]);
+//        return view('welcome');
     }
 
 
@@ -38,17 +42,23 @@ class ShopController extends Controller
     {
         $products = $category->products()->paginate(10);
 
-        return view('shop.category.products', [
+        $categories = Category::with('products')->get();
+
+        return view('shop.category', [
             'products' => $products,
             'category' => $category,
+            'highlightedCategories' => $categories,
         ]);
     }
 
 
     public function product(Product $product): View
     {
-        return view('shop.product.show', [
+        $categories = Category::with('products')->get();
+
+        return view('shop.product', [
             'product' => $product,
+            'highlightedCategories' => $categories,
         ]);
     }
 }
