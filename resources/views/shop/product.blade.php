@@ -4,19 +4,28 @@
 
 @section('content')
 
-    <div class="d-flex flex-wrap justify-content-evenly">
+    <div class="d-flex flex-wrap justify-content-evenly pt-5">
 
-        <div class="mb-5 shadow rounded-3 border" style="width: 30%; min-width: 385px;">
+        <div class="mb-5 shadow-sm rounded-3 border" style="width: 30%; min-width: 385px; height: 225px;">
             <a class="text-decoration-none text-dark" href="{{ route('shop.product.show', ['product' => $product->slug]) }}">
-                <div class="d-flex flex-row">
-                    <div>
-                        <img class="rounded-start" src="{{ $product->image }}" alt="{{ $product->title }}" style="max-width: 225px; max-height: 225px;">
+                <div class="d-flex flex-row h-100">
+                    <div class="h-100">
+                        <img class="rounded-start h-100" src="{{ $product->image }}" alt="{{ $product->title }}" style="width: 150px; object-fit: cover;">
                     </div>
-                    <div class="d-flex flex-column justify-content-between ms-2 me-2 my-1">
-                        <span class="mb-1 fs-6 fw-bold fst-italic">{{ $product->title }}</span>
-                        <span class="mb-1 fs-6">{{ $product->author }}</span>
-                        <span class="mb-1 fs-6" style="display: inline-block; max-height: 75px; max-width: 100%; overflow-y: hidden; text-overflow: ellipsis;">{{ $product->description }}</span>
-                        <small class="text-muted">{{ $product->price }} €</small>
+                    <div class="d-flex flex-column justify-content-between ms-2 me-2 mb-2">
+                        <div class="d-block mb-1">
+                            <div class="fs-6 fw-bold fst-italic" style="display: inline-block; max-height: 50px; overflow-y: hidden; text-overflow: ellipsis;">{{ $product->title }}</div>
+                            <div class="fs-6">{{ $product->author }}</div>
+                        </div>
+                        <div class="mb-1" style="display: inline-block; max-height: 75px; max-width: 100%; overflow-y: hidden; text-overflow: ellipsis; font-size: 12px">{{ $product->description }}</div>
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div class="text-muted">Unitats disponibles: {{ $product->stock }}</div>
+                            <form method="post" action="{{ route('shop.cart.add', ['product' => $product]) }}">
+                                @csrf
+                                <input class="btn btn-sm btn-outline-dark rounded" type="submit" value="Afegir a la cistella">
+                            </form>
+                            <div class="text-muted">{{ $product->price }} €</div>
+                        </div>
                     </div>
                 </div>
             </a>

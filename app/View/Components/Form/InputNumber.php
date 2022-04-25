@@ -6,11 +6,12 @@ use Illuminate\View\Component;
 
 class InputNumber extends Component
 {
-    public $name;
-    public $label;
-    public $placeholder;
-    public $id;
+    public string $name;
+    public string $label;
+    public string $placeholder;
+    public string $id;
     public string $value;
+    public int $min;
 
 
     /**
@@ -18,13 +19,15 @@ class InputNumber extends Component
      *
      * @return void
      */
-    public function __construct(string $id, string $label, string $name, string $placeholder, string $value = '')
+    public function __construct(string $id, string $label, string $name, string $placeholder, string $value = '', int $min = 0)
+
     {
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
         $this->placeholder = $placeholder;
         $this->value = $value;
+        $this->min = $min;
     }
 
 

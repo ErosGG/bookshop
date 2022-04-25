@@ -40,8 +40,6 @@ class ProductController extends Controller
 
         Product::create($validated);
 
-
-
         return to_route('admin.products.index');
     }
 

@@ -6,6 +6,6 @@
     {{ $slot }}
     <div class="d-flex justify-content-center align-items-center">
         <button type="submit" class="btn btn-primary mt-2 me-1">Acceptar</button>
-        <button type="reset" class="btn btn-secondary mt-2 ms-1">Netejar</button>
+        <button type="reset" class="btn btn-secondary mt-2 ms-1">Restaurar</button>
     </div>
 </form>

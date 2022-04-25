@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filters\CategoryFilter;
+use App\Filters\ProductFilter;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -67,5 +69,22 @@ class Category extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
+    }
+
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeFilterBy(Builder $query): Builder
+    {
+        $categoryFilter = new CategoryFilter();
+
+        $fields = ['name', 'highlighted', 'description'];
+
+        $data = request()->only($fields);
+
+        return $categoryFilter->applyTo($query, $data);
     }
 }

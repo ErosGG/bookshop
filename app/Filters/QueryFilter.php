@@ -2,7 +2,6 @@
 
 namespace App\Filters;
 
-
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 

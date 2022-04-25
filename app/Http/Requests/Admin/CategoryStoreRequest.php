@@ -13,7 +13,7 @@ class CategoryStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check() ? auth()->user()->admin : false;
     }
 
     /**
@@ -24,7 +24,10 @@ class CategoryStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255', 'unique:products,title'],
+            'highlighted' => ['required', 'in:true'],
+            'image' => ['nullable', 'image', 'max:2048'],
+            'description' => ['nullable', 'string', 'max:10000'],
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
@@ -15,7 +16,7 @@ class CategoryController extends Controller
     public function index(): View
     {
         return view('admin.categories.index', [
-            'categories' => Category::all(),
+            'categories' => Category::filterBy()->paginate(10)
         ]);
     }
 
@@ -28,10 +29,11 @@ class CategoryController extends Controller
 
     public function store(CategoryStoreRequest $request): RedirectResponse
     {
-        Category::create($request->validated());
+        $validated = $request->validated()->push(Str::of($request->name)->slug());
 
-        return to_route('admin.categories.index')
-            ->with('success', 'Category created successfully');
+        Category::create($validated);
+
+        return to_route('admin.categories.index');
     }
 
 
@@ -64,7 +66,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return to_route('admin.categories.index')
-            ->with('success', 'Category deleted successfully');
+        return to_route('admin.categories.index');
     }
 }

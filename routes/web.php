@@ -56,7 +56,7 @@ Route::get('/product/{product:slug}', [ShopController::class, 'product'])->name(
 Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
 
 
-Route::post('/cart', [ShopController::class, 'addToCart'])->name('shop.cart.add');
+Route::post('/cart/add/{product}', [ShopController::class, 'addToCart'])->name('shop.cart.add');
 
 
 Route::get('/checkout', [ShopController::class, 'checkout'])
@@ -74,12 +74,12 @@ Route::get('/thankyou', [ShopController::class, 'thankyou'])
     ->name('shop.thankyou');
 
 
-Route::get('/user/{user}/profile', [ShopController::class, 'profile'])
+Route::get('/user/{user:uuid}/profile', [ShopController::class, 'profile'])
     ->middleware(['auth',])
     ->name('shop.user.profile');
 
 
-Route::get('/user/{user}/profile/edit', [ShopController::class, 'editProfile'])
+Route::get('/user/{user::uuid}/profile/edit', [ShopController::class, 'editProfile'])
     ->middleware(['auth',])
     ->name('shop.user.profile.edit');
 
@@ -89,12 +89,12 @@ Route::post('/user/{user}/profile/update', [ShopController::class, 'updateProfil
     ->name('shop.user.profile.update');
 
 
-Route::get('/user/{user}/orders', [ShopController::class, 'orders'])
+Route::get('/user/{user:uuid}/orders', [ShopController::class, 'orders'])
     ->middleware(['auth',])
     ->name('shop.user.orders');
 
 
-Route::get('/user/{user}/orders/{order}', [ShopController::class, 'order'])
+Route::get('/user/{user:uuid}/orders/{order}', [ShopController::class, 'order'])
     ->middleware(['auth',])
     ->name('shop.user.order');
 

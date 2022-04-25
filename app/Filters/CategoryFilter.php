@@ -5,7 +5,7 @@ namespace App\Filters;
 use JetBrains\PhpStorm\ArrayShape;
 
 
-class ProductFilter extends QueryFilter
+class CategoryFilter extends QueryFilter
 {
     /**
      * @return string[]

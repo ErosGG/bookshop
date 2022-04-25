@@ -32,7 +32,7 @@
                         <li><a class="dropdown-item" href="{{ route('shop.categories') }}">Totes les categories</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="nav-link px-2 link-dark"><i class="bi bi-basket me-1"></i>Cistella</a></li>
+                <li><a href="{{ route('shop.cart') }}" class="nav-link px-2 link-dark"><i class="bi bi-basket me-1"></i>Cistella</a></li>
             </ul>
 
 
@@ -48,7 +48,7 @@
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
                         <li><a class="dropdown-item" href="#">{{ auth()->user()->name }}</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="{{ route('shop.user.profile', ['user' => auth()->user()->uuid ]) }}">Perfil</a></li>
                         @admin
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('admin.dashboard.index') }}">Administració</a></li>
