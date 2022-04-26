@@ -4,8 +4,10 @@
         @method($method)
     @endif
     {{ $slot }}
-    <div class="d-flex justify-content-center align-items-center">
-        <button type="submit" class="btn btn-primary mt-2 me-1">Acceptar</button>
-        <button type="reset" class="btn btn-secondary mt-2 ms-1">Restaurar</button>
-    </div>
+    @if($buttons)
+        <div class="d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn btn-primary mt-2 me-1">Acceptar</button>
+            <button type="reset" class="btn btn-secondary mt-2 ms-1">Restaurar</button>
+        </div>
+    @endif
 </form>

@@ -9,6 +9,7 @@ class Form extends Component
     public string $action;
     public string $method;
     public string $enctype;
+    public bool $buttons;
 
 
     /**
@@ -16,11 +17,12 @@ class Form extends Component
      *
      * @return void
      */
-    public function __construct(string $action = '', string $method = '', string $enctype = '')
+    public function __construct(string $action = '', string $method = '', string $enctype = '', bool $buttons = true)
     {
         $this->action = $action;
         $this->method = $method;
         $this->enctype = $enctype;
+        $this->buttons = $buttons;
     }
 
 

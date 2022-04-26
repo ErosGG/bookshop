@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -57,6 +56,9 @@ Route::get('/cart', [ShopController::class, 'cart'])->name('shop.cart');
 
 
 Route::post('/cart/add/{product}', [ShopController::class, 'addToCart'])->name('shop.cart.add');
+
+
+Route::get('cart/remove/{product}', [ShopController::class, 'removeFromCart'])->name('shop.cart.remove');
 
 
 Route::get('/checkout', [ShopController::class, 'checkout'])

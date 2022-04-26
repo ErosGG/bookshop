@@ -2,10 +2,15 @@
 
 namespace App\Rules;
 
+use App\Models\Product;
 use Illuminate\Contracts\Validation\Rule;
+
 
 class EnoughStock implements Rule
 {
+    private Product $prduct;
+
+
     /**
      * Create a new rule instance.
      *
@@ -25,6 +30,8 @@ class EnoughStock implements Rule
      */
     public function passes($attribute, $value)
     {
+        $this->prduct = $value->product;
+
         return $value->product->stock >= $value->quantity;
     }
 
@@ -35,6 +42,6 @@ class EnoughStock implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return "No hi ha prou unitats del producte {$this->prduct->title}. Queden {$this->prduct->stock} unitats";
     }
 }

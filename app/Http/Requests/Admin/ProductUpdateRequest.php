@@ -37,7 +37,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => ['required', 'numeric', 'gt:0'],
             'stock' => ['required', 'numeric', 'min:0'],
             'highlighted' => ['required', 'in:0,1'],
-            'image' => ['required', 'image', 'max:2048'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'description' => ['nullable', 'string', 'max:10000'],
         ];
     }

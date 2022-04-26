@@ -93,4 +93,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'admin' => 'boolean',
     ];
+
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

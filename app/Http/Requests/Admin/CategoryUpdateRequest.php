@@ -14,7 +14,7 @@ class CategoryUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check() ? auth()->user()->admin : false;
     }
 
     /**

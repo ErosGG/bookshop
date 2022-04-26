@@ -42,7 +42,7 @@ class ShopController extends Controller
 
         return view('shop.search', [
             'products' => $products,
-            'highlightedCategories' => $categories->where('highlighted', true),
+            'highlightedCategories' => Category::where('highlighted', true)->get(),
         ]);
     }
 
@@ -117,7 +117,21 @@ class ShopController extends Controller
 
         $cookie = cookie('cart', json_encode($cart), 60 * 24 * 30); // 30 days
 
-        return redirect()->back()->cookie($cookie)->with('success', 'Product added to cart successfully!');
+        return redirect()->back()->cookie($cookie);
+    }
+
+
+    public function removeFromCart(Product $product)
+    {
+        $cookie = Cookie::get('cart');
+
+        $cart = json_decode($cookie, true);
+
+        if (array_key_exists($product->id, $cart)) unset($cart[$product->id]);
+
+        $cookie = cookie('cart', json_encode($cart), 60 * 24 * 30); // 30 days
+
+        return redirect()->back()->cookie($cookie);
     }
 
 
@@ -130,7 +144,7 @@ class ShopController extends Controller
         Validator::make($data, [
             'products' => ['required', 'array', 'min:1'],
             'products.*' => ['required', 'integer', 'exists:products,id',],
-        ]);
+        ])->validate();
 
         $quantities = collect($request->input('products'))->values();
 
@@ -150,10 +164,48 @@ class ShopController extends Controller
 
         $data = ['cartItems' => $cartItems->toArray(),];
 
-        Validator::make($data, [
+//        Validator::make($data, [
+//            'cartItems' => ['required', 'array', 'min:1'],
+//            'cartItems.*' => [new OrderedQuantity(), new EnoughStock()],
+//        ])->validate();
+
+        $validator = Validator::make($data, [
             'cartItems' => ['required', 'array', 'min:1'],
             'cartItems.*' => [new OrderedQuantity(), new EnoughStock()],
         ]);
+
+        if ($validator->fails()) {
+
+            $failedRules = $validator->failed();
+
+            foreach ($failedRules as $attribute => $rules) {
+
+                foreach ($rules as $rule => $value) {
+
+                    if ($rule === EnoughStock::class) {
+
+                        $cartItemIdx = explode('.', $attribute)[1];
+
+                        $cartItem = $data['cartItems'][$cartItemIdx];
+
+                        if ($cartItem->product->stock > 0) {
+
+                            $cartItem->quantity = $cartItem->product->stock;
+
+                            $cart[$cartItem->product->id] = ['quantity' => $cartItem->quantity];
+
+                        } else {
+
+                            unset($cart[$cartItem->product->id]);
+                        }
+                    }
+                }
+            }
+            Cookie::queue('cart', $cart->toJson(), 60 * 24 * 30); // 30 days
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
 
         Cookie::queue('cart', $cart->toJson(), 60 * 24 * 30); // 30 days
 
