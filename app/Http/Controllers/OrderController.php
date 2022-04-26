@@ -14,4 +14,14 @@ class OrderController extends Controller
             'orders' => Order::paginate(10),
         ]);
     }
+
+
+    public function show(Order $order)
+    {
+        return view('admin.orders.show', [
+            'order' => $order,
+            'products' => $order->products,
+            'orderProducts' => $order->products->pluck('pivot'),
+        ]);
+    }
 }
