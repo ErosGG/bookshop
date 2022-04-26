@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ProductFilter;
 use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Http\Requests\Admin\ProductUpdateRequest;
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -12,33 +13,41 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
 
     public function index(): View
     {
         auth()->check();
 
-        $products = Product::filterBy()->paginate(10);
-
         return view('admin.products.index', [
-            'products' => $products,
+            'products' => Product::filterBy()->paginate(10),
         ]);
     }
 
 
     public function create(): View
     {
-        return view('admin.products.create');
+        return view('admin.products.create', [
+            'categories' => Category::all(),
+        ]);
     }
 
 
     public function store(ProductStoreRequest $request): RedirectResponse
     {
+        $data = $request->validated();
 
-        $validated = $request->validated()->push(Str::of($request->title)->slug());
+        $data['slug'] = Str::slug($request->title);
 
-        Product::create($validated);
+        $product = Product::create($data);
+
+        if ($request->hasFile('image')) {
+
+            $absolutePath = $this->imageUpload($request, $product, 'products');
+
+            $product->update(['image' => $absolutePath]);
+        }
 
         return to_route('admin.products.index');
     }
@@ -55,7 +64,8 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         return view('admin.products.edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => Category::all(),
         ]);
     }
 
@@ -63,11 +73,8 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, Product $product): RedirectResponse
     {
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $relativePath = 'public/shop/uploads/images/products/';
-            $imageName = $product->slug . '.' . $image->getClientOriginalExtension();
-            $request->file('image')->storeAs($relativePath, $imageName);
-            $absolutePath = asset('storage/shop/uploads/images/products/' . $imageName);
+
+            $absolutePath = $this->imageUpload($request, $product, 'products');
         }
 //        else {
 //            $absolutePath = 'storage/shop/images/products/default/' . 'no-cover.jpg';

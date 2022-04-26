@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('order_product', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->unsignedBigInteger('product_id');
+            $table->foreignId('order_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('product_id')->nullable()->constrained()->nullOnDelete();
             $table->unsignedBigInteger('quantity');
             $table->decimal('price');
             $table->timestamps();

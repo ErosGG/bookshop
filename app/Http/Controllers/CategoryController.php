@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 
-class CategoryController extends Controller
+class CategoryController extends AdminController
 {
     public function index(): View
     {
@@ -29,9 +29,18 @@ class CategoryController extends Controller
 
     public function store(CategoryStoreRequest $request): RedirectResponse
     {
-        $validated = $request->validated()->push(Str::slug($request->name));
+        $data = $request->validated();
 
-        Category::create($validated);
+        $data['slug'] = Str::slug($request->title);
+
+        $category = Category::create($data);
+
+        if ($request->hasFile('image')) {
+
+            $absolutePath = $this->imageUpload($request, $category, 'categories');
+
+            $category->update(['image' => $absolutePath]);
+        }
 
         return to_route('admin.categories.index');
     }
@@ -56,16 +65,8 @@ class CategoryController extends Controller
     public function update(CategoryUpdateRequest $request, Category $category): RedirectResponse
     {
         if ($request->hasFile('image')) {
-            $image = $request->file('image');
 
-            $relativePath = 'public/shop/uploads/images/categories/';
-
-            $imageName = $category->slug . '.' . $image->getClientOriginalExtension();
-
-            $request->file('image')->storeAs($relativePath, $imageName);
-
-            $absolutePath = asset('storage/shop/uploads/images/categories/' . $imageName);
-
+            $absolutePath = $this->imageUpload($request, $category, 'categories');
         }
 //        else {
 //            $absolutePath = 'storage/shop/images/products/default/' . 'no-cover.jpg';

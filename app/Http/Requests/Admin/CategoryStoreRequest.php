@@ -25,7 +25,7 @@ class CategoryStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', 'unique:products,title'],
-            'highlighted' => ['required', 'in:true'],
+            'highlighted' => ['required', 'in:0,1'],
             'image' => ['nullable', 'image', 'max:2048'],
             'description' => ['nullable', 'string', 'max:10000'],
         ];

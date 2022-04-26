@@ -30,9 +30,24 @@ class Order extends Model
     use HasFactory;
 
 
+    private static array $statuses = [
+        'pending',
+        'processing',
+        'completed',
+        'shipped',
+        'cancelled',
+    ];
+
     protected $fillable = [
         'user_id',
+        'status',
     ];
+
+
+    public static function getStatuses(): array
+    {
+        return self::$statuses;
+    }
 
 
     public function user()

@@ -39,6 +39,7 @@ class ProductUpdateRequest extends FormRequest
             'highlighted' => ['required', 'in:0,1'],
             'image' => ['nullable', 'image', 'max:2048'],
             'description' => ['nullable', 'string', 'max:10000'],
+            'category_id' => ['required', 'exists:categories,id'],
         ];
     }
 }

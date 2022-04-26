@@ -19,10 +19,11 @@
                 <x-form.input-text id="place" name="place" label="Lloc de publicació" placeholder="Lloc de publicació" value="{{ $product->place }}"></x-form.input-text>
                 <x-form.input-text id="isbn" name="isbn" label="ISBN" placeholder="ISBN" value="{{ $product->isbn }}"></x-form.input-text>
                 <x-form.input-text id="series" name="series" label="Col·lecció" placeholder="Col·lecció" value="{{ $product->series }}"></x-form.input-text>
-                <x-form.input-number id="price" name="price" label="Preu" placeholder="Preu" value="{{ $product->price }}"></x-form.input-number>
+                <x-form.input-number id="price" name="price" label="Preu" placeholder="Preu" value="{{ $product->price }}" min="0" step="0.01"></x-form.input-number>
                 <x-form.input-number id="stock" name="stock" label="Estoc" placeholder="Estoc" value="{{ $product->stock }}"></x-form.input-number>
                 <x-form.input-file id="image" name="image" label="Imatge" value="{{ $product->image }}"></x-form.input-file>
                 <x-form.textarea id="description" name="description" label="Descripció" value="{{ $product->description }}"></x-form.textarea>
+                <x-form.select id="category_id" name="category_id" label="Categoria" placeholder="Categoria" :options="$categories" selected="{{ $product->category_id }}"></x-form.select>
                 <x-form.input-radio-inline id="highlighted" name="highlighted" label="Destacar" value="1" :checked="$product->highlighted"></x-form.input-radio-inline>
                 <x-form.input-radio-inline id="no_highlighted" name="highlighted" label="No destacar" value="0" :checked="!$product->highlighted"></x-form.input-radio-inline>
             </x-form.form>

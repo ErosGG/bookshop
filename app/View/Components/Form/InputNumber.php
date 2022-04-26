@@ -12,6 +12,8 @@ class InputNumber extends Component
     public string $id;
     public string $value;
     public int $min;
+    public int $max;
+    public string $step;
 
 
     /**
@@ -19,15 +21,24 @@ class InputNumber extends Component
      *
      * @return void
      */
-    public function __construct(string $id, string $label, string $name, string $placeholder, string $value = '', int $min = 0)
-
-    {
+    public function __construct(
+        string $id,
+        string $label,
+        string $name,
+        string $placeholder,
+        string $value = '',
+        int $min = 0,
+        int $max = PHP_INT_MAX,
+        string $step = ''
+    ) {
         $this->id = $id;
         $this->label = $label;
         $this->name = $name;
         $this->placeholder = $placeholder;
         $this->value = $value;
         $this->min = $min;
+        $this->max = $max;
+        $this->step = $step;
     }
 
 
