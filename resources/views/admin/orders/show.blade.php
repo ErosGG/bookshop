@@ -9,25 +9,30 @@
 <x-card.card>
     <x-card.body>
 
-{{--        <div class="row">--}}
-{{--            <div class="col-md-6">--}}
-{{--                <div class="form-group mb-5">--}}
-{{--                    <label for="name">Nom</label>--}}
-{{--                    <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}" disabled>--}}
-{{--                </div>--}}
-{{--                <div class="form-group mb-5">--}}
-{{--                    <label for="description">Descripció</label>--}}
-{{--                    <textarea class="form-control" id="description" name="description" rows="3" disabled>{{ $category->description }}</textarea>--}}
-{{--                </div>--}}
-{{--                <div class="form-check mb-5">--}}
-{{--                    <input type="checkbox" class="form-check-input" id="highlighted" name="highlighted" disabled @if($category->highlighted) checked @endif>--}}
-{{--                    <label for="highlighted">Destacada</label>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-        @foreach($products as $key => $value)
-            {{ $value->pivot->quantity }}<br>
-        @endforeach
+        <x-table.table>
+            <x-table.head>
+                <x-table.tr>
+                    <x-table.th>Títol</x-table.th>
+                    <x-table.th>Quantitat</x-table.th>
+                    <x-table.th>Preu</x-table.th>
+                    <x-table.th>Total</x-table.th>
+                </x-table.tr>
+            </x-table.head>
+            <x-table.body>
+                @foreach($products as $key => $product)
+                    <x-table.tr>
+                        <x-table.td align="start">{{ $product->title }}</x-table.td>
+                        <x-table.td>{{ $product->pivot->quantity }}</x-table.td>
+                        <x-table.td>{{ $product->pivot->price }}</x-table.td>
+                        <x-table.td>{{ $product->pivot->quantity * $product->pivot->price }}</x-table.td>
+                    </x-table.tr>
+                @endforeach
+                <tr class="fw-bold">
+                    <td class="text-end" colspan="3">Total comanda</td>
+                    <td class="text-center">{{ $total }}</td>
+                </tr>
+            </x-table.body>
+        </x-table.table>
 
     </x-card.body>
 </x-card.card>

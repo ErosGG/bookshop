@@ -37,9 +37,9 @@
                 <x-table.body>
                     @foreach($categories as $category)
                         <x-table.tr>
-                            <x-table.td>{{ $category->name }}</x-table.td>
+                            <x-table.td align="start">{{ $category->name }}</x-table.td>
                             <x-table.td>
-                                <div class="d-flex flex-row justify-content-start align-items-center">
+                                <div class="d-flex flex-row justify-content-center align-items-center">
                                     <x-table.option.details href="{{ route('admin.categories.show', ['category' => $category]) }}"></x-table.option.details>
                                     <x-table.option.edit href="{{ route('admin.categories.edit', ['category' => $category]) }}"></x-table.option.edit>
                                     <x-table.option.delete href="{{ route('admin.categories.delete', ['category' => $category]) }}"></x-table.option.delete>

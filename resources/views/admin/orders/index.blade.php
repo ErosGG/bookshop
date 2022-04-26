@@ -47,7 +47,7 @@
                             <x-table.td>{{ $order->created_at }}</x-table.td>
                             <x-table.td>{{ $order->updated_at }}</x-table.td>
                             <x-table.td>
-                                <div class="d-flex flex-row justify-content-start align-items-center">
+                                <div class="d-flex flex-row justify-content-center align-items-center">
                                     <x-table.option.details href="{{ route('admin.orders.show', ['order' => $order]) }}"></x-table.option.details>
                                     <x-table.option.edit href="{{ route('admin.orders.edit', ['order' => $order]) }}"></x-table.option.edit>
                                     <x-table.option.delete href="{{ route('admin.orders.delete', ['order' => $order]) }}"></x-table.option.delete>

@@ -39,11 +39,11 @@
                 <x-table.body>
                     @foreach($products as $product)
                         <x-table.tr>
-                            <x-table.td>{{ $product->title }}</x-table.td>
+                            <x-table.td align="start">{{ $product->title }}</x-table.td>
                             <x-table.td>{{ $product->author }}</x-table.td>
                             <x-table.td>{{ $product->year }}</x-table.td>
                             <x-table.td>
-                                <div class="d-flex flex-row justify-content-start align-items-center">
+                                <div class="d-flex flex-row justify-content-center align-items-center">
                                     <x-table.option.details href="{{ route('admin.products.show', ['product' => $product]) }}"></x-table.option.details>
                                     <x-table.option.edit href="{{ route('admin.products.edit', ['product' => $product]) }}"></x-table.option.edit>
                                     <x-table.option.delete href="{{ route('admin.products.delete', ['product' => $product]) }}"></x-table.option.delete>
