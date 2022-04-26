@@ -12,7 +12,7 @@ class OrderController extends Controller
     public function index()
     {
         return view('admin.orders.index', [
-            'orders' => Order::paginate(10),
+            'orders' => Order::filterBy()->paginate(10),
         ]);
     }
 

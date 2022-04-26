@@ -10,17 +10,17 @@ class CategoryFilter extends QueryFilter
     /**
      * @return string[]
      */
-    #[ArrayShape(['title' => "string"])]
+    #[ArrayShape(['name' => "string"])]
     public function rules(): array
     {
         return [
-            'title' => ''
+            'name' => ''
         ];
     }
 
 
-    public function filterByTitle($query, $title)
+    public function filterByName($query, $name)
     {
-        return $query->where('title', 'like', "%$title%");
+        return $query->where('name', 'like', "%$name%");
     }
 }

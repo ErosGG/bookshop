@@ -16,7 +16,7 @@
     <div class="collapse" id="collapsed_filters">
         <div class="card card-body bg-dark">
             <x-form.form method="get" action="{{ route('admin.orders.index') }}">
-                <x-form.input-text id="name_search" name="name" label="Cercador" placeholder="Cercador"></x-form.input-text>
+                <x-form.input-text id="name_search" name="status" label="Cercador" placeholder="Cercador"></x-form.input-text>
             </x-form.form>
         </div>
     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Filters\CategoryFilter;
+use App\Filters\OrderFilter;
 use Barryvdh\LaravelIdeHelper\Eloquent;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,5 +64,22 @@ class Order extends Model
             ->using(OrderProduct::class)
             ->withPivot('quantity', 'price')
             ->withTimestamps();
+    }
+
+
+    /**
+     * @param Builder $query
+     *
+     * @return Builder
+     */
+    public function scopeFilterBy(Builder $query): Builder
+    {
+        $orderFilter = new OrderFilter();
+
+        $fields = ['status', 'email', 'id', 'created_at', 'updated_at'];
+
+        $data = request()->only($fields);
+
+        return $orderFilter->applyTo($query, $data);
     }
 }
