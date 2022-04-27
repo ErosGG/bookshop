@@ -9,14 +9,20 @@
     {{--        <x-form.input-text id="title_search" name="title" label="Cercador" placeholder="Cercador"></x-form.input-text>--}}
     {{--    </x-form.form>--}}
     <x-button.filter></x-button.filter>
-    <x-button.add href="{{ route('admin.orders.create') }}"></x-button.add>
+{{--    <x-button.add href="{{ route('admin.orders.create') }}"></x-button.add>--}}
 @endsection
 
 @section('collapsed-filters')
     <div class="collapse" id="collapsed_filters">
         <div class="card card-body bg-dark">
             <x-form.form method="get" action="{{ route('admin.orders.index') }}">
-                <x-form.input-text id="name_search" name="status" label="Cercador" placeholder="Cercador"></x-form.input-text>
+                <x-form.select id="status" name="status" label="Estat" placeholder="Estat" :options="$options"></x-form.select>
+                <x-form.input-text id="id" name="id" label="ID" placeholder="ID"></x-form.input-text>
+                <x-form.input-text id="email" name="email" label="Correu electrònic" placeholder="Correu electrònic"></x-form.input-text>
+                <div class="text-light">
+                    <label class="me-3" for="created_at">Data comanda</label><input type="date" id="created_at" name="created_at"><br>
+                    <label class="me-3" for="updated_at">Data actualització</label><input type="date" id="updated_at" name="updated_at">
+                </div>
             </x-form.form>
         </div>
     </div>

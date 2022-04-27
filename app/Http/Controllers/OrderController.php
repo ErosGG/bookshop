@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Admin\OrderUpdateRequest;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -13,6 +14,7 @@ class OrderController extends Controller
     {
         return view('admin.orders.index', [
             'orders' => Order::filterBy()->paginate(10),
+            'options' => collect(Order::getStatuses())->mapWithKeys(fn ($item, $key) => [$key => $item]),
         ]);
     }
 
@@ -44,5 +46,23 @@ class OrderController extends Controller
             'options' => collect(Order::getStatuses())->mapWithKeys(fn ($item, $key) => [$key => $item]),
             'selected' => $order->status,
         ]);
+    }
+
+
+    public function update(Order $order, OrderUpdateRequest $request)
+    {
+        $order->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.orders.index', $order);
+    }
+
+
+    public function delete(Order $order)
+    {
+        $order->delete();
+
+        return redirect()->route('admin.orders.index');
     }
 }

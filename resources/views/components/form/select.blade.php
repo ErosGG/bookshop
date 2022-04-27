@@ -4,7 +4,7 @@
             name="{{ $name }}"
             aria-label="Floating label select example"
     >
-        <option selected>Tria una opció</option>
+        <option value="" selected>Tria una opció</option>
         @foreach($options as $key => $option)
             @if($option instanceof Illuminate\Database\Eloquent\Model)
                 <option value="{{ $option->id }}" @if($option->id == old($name, $selected)) selected @endif>{{ $option->name }}</option>
