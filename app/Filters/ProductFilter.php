@@ -2,19 +2,18 @@
 
 namespace App\Filters;
 
-use JetBrains\PhpStorm\ArrayShape;
-
 
 class ProductFilter extends QueryFilter
 {
     /**
      * @return string[]
      */
-    #[ArrayShape(['title' => "string"])]
     public function rules(): array
     {
         return [
-            'title' => ''
+            'title' => '',
+            'author' => '',
+            'year' => ''
         ];
     }
 
@@ -22,5 +21,17 @@ class ProductFilter extends QueryFilter
     public function filterByTitle($query, $title)
     {
         return $query->where('title', 'like', "%$title%");
+    }
+
+
+    public function filterByAuthor($query, $author)
+    {
+        return $query->where('author', 'like', "%$author%");
+    }
+
+
+    public function filterByYear($query, $year)
+    {
+        return $query->where('year', 'like', "%$year%");
     }
 }

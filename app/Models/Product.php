@@ -125,6 +125,8 @@ class Product extends Model
 
         $data = request()->only($fields);
 
+        $data = collect($data)->whereNotNull()->toArray();
+
         return $productFilter->applyTo($query, $data);
     }
 }

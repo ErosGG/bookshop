@@ -85,6 +85,8 @@ class Category extends Model
 
         $data = request()->only($fields);
 
+        $data = collect($data)->whereNotNull()->toArray();
+
         return $categoryFilter->applyTo($query, $data);
     }
 }

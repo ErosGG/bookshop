@@ -3,7 +3,6 @@
 namespace App\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
-use JetBrains\PhpStorm\ArrayShape;
 
 
 class OrderFilter extends QueryFilter

@@ -59,30 +59,30 @@
                 Comandes
             </a>
         </li>
-        <li>
-            <a href="{{ route('admin.users.index') }}" class="d-flex align-items-center nav-link text-white fs-5 @if($section === 'users'){{ 'active' }}@endif">
-                <svg style="margin-left: 10px; margin-right: 10px;"
-                     xmlns="http://www.w3.org/2000/svg" width="32" height="27" fill="currentColor"  viewBox="0 0 16 16"
-                     class="bi bi-people"
-                >
-                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
-                </svg>
-                Usuaris
-            </a>
-        </li>
+{{--        <li>--}}
+{{--            <a href="{{ route('admin.users.index') }}" class="d-flex align-items-center nav-link text-white fs-5 @if($section === 'users'){{ 'active' }}@endif">--}}
+{{--                <svg style="margin-left: 10px; margin-right: 10px;"--}}
+{{--                     xmlns="http://www.w3.org/2000/svg" width="32" height="27" fill="currentColor"  viewBox="0 0 16 16"--}}
+{{--                     class="bi bi-people"--}}
+{{--                >--}}
+{{--                    <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>--}}
+{{--                </svg>--}}
+{{--                Usuaris--}}
+{{--            </a>--}}
+{{--        </li>--}}
     </ul>
     <hr>
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="27">
-            <strong>mdo</strong>
+            <strong>{{ auth()->user()->name }}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+{{--            <li><a class="dropdown-item" href="#">New project...</a></li>--}}
+{{--            <li><a class="dropdown-item" href="#">Settings</a></li>--}}
+            <li><a class="dropdown-item" href="{{ route('shop.user.profile', ['user' => auth()->user()->uuid ]) }}">Perfil</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="{{ route('logout') }}">Finalitzar la sessió</a></li>
         </ul>
     </div>
 </div>
