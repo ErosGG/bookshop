@@ -3,6 +3,7 @@
 namespace App\View\Components\Form;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\View\Component;
 
 
@@ -11,7 +12,7 @@ class Select extends Component
     public string $id;
     public string $name;
     public string $label;
-    public Collection $options;
+    public BaseCollection|Collection $options;
     public string $selected;
 
 
@@ -20,7 +21,7 @@ class Select extends Component
      *
      * @return void
      */
-    public function __construct(string $id, string $name, string $label, Collection $options, string $selected = '')
+    public function __construct(string $id, string $name, string $label, BaseCollection|Collection $options, string $selected = '')
     {
         $this->id = $id;
         $this->name = $name;

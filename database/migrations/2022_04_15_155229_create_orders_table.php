@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->enum('status', Order::getStatuses());
+            $table->enum('status', collect(Order::getStatuses())->keys()->toArray());
             $table->timestamps();
         });
     }

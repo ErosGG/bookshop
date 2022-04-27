@@ -35,4 +35,14 @@ class OrderController extends Controller
             'total' => $total,
         ]);
     }
+
+
+    public function edit(Order $order)
+    {
+        return view('admin.orders.edit', [
+            'order' => $order,
+            'options' => collect(Order::getStatuses())->mapWithKeys(fn ($item, $key) => [$key => $item]),
+            'selected' => $order->status,
+        ]);
+    }
 }

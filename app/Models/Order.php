@@ -33,11 +33,11 @@ class Order extends Model
 
 
     private static array $statuses = [
-        'pending',
-        'processing',
-        'completed',
-        'shipped',
-        'cancelled',
+        'pending' => 'pendent',
+        'processing' => 'en procés',
+        'completed' => 'completada',
+        'shipped' => 'enviada',
+        'cancelled' => 'cancel·lada',
     ];
 
     protected $fillable = [

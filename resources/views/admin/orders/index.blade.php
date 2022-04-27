@@ -42,7 +42,19 @@
                     @foreach($orders as $order)
                         <x-table.tr>
                             <x-table.td>{{ $order->id }}</x-table.td>
-                            <x-table.td>{{ $order->status }}</x-table.td>
+                            <x-table.td>
+                                @if($order->status === 'pending')
+                                    {{ 'Pendent' }}
+                                @elseif($order->status === 'processing')
+                                    {{ 'En procés' }}
+                                @elseif($order->status === 'completed')
+                                    {{ 'Completada' }}
+                                @elseif($order->status === 'shipped')
+                                    {{ 'Enviada' }}
+                                @elseif($order->status === 'cancelled')
+                                    {{ 'Cancel·lada' }}
+                                @endif
+                            </x-table.td>
                             <x-table.td>{{ $order->user->email }}</x-table.td>
                             <x-table.td>{{ $order->created_at }}</x-table.td>
                             <x-table.td>{{ $order->updated_at }}</x-table.td>

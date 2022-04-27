@@ -6,7 +6,11 @@
     >
         <option selected>Tria una opció</option>
         @foreach($options as $key => $option)
-            <option value="{{ $option->id }}" @if($option->id == old($name, $selected)) selected @endif>{{ $option->name }}</option>
+            @if($option instanceof Illuminate\Database\Eloquent\Model)
+                <option value="{{ $option->id }}" @if($option->id == old($name, $selected)) selected @endif>{{ $option->name }}</option>
+            @else
+                <option value="{{ $key }}" @if($key == old($name, $selected)) selected @endif>{{ $option }}</option>
+            @endif
         @endforeach
     </select>
     <label for="{{ $id }}">{{ $label }}</label>
