@@ -61,19 +61,19 @@ Route::post('/cart/add/{product}', [ShopController::class, 'addToCart'])->name('
 Route::get('cart/remove/{product}', [ShopController::class, 'removeFromCart'])->name('shop.cart.remove');
 
 
-Route::get('/checkout', [ShopController::class, 'checkout'])
-    ->middleware(['auth',])
-    ->name('shop.checkout');
-
-
-Route::post('/checkout', [ShopController::class, 'payment'])
-    ->middleware(['auth',])
-    ->name('shop.payment');
-
-
-Route::get('/thankyou', [ShopController::class, 'thankyou'])
-    ->middleware(['auth',])
-    ->name('shop.thankyou');
+//Route::get('/checkout', [ShopController::class, 'checkout'])
+//    ->middleware(['auth',])
+//    ->name('shop.checkout');
+//
+//
+//Route::post('/checkout', [ShopController::class, 'payment'])
+//    ->middleware(['auth',])
+//    ->name('shop.payment');
+//
+//
+//Route::get('/thankyou', [ShopController::class, 'thankyou'])
+//    ->middleware(['auth',])
+//    ->name('shop.thankyou');
 
 
 Route::get('/user/{user:uuid}/profile', [ShopController::class, 'profile'])

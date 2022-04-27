@@ -13,7 +13,9 @@ class ProductFilter extends QueryFilter
         return [
             'title' => '',
             'author' => '',
-            'year' => ''
+            'year' => '',
+            'price' => '',
+            'stock' => '',
         ];
     }
 
@@ -33,5 +35,17 @@ class ProductFilter extends QueryFilter
     public function filterByYear($query, $year)
     {
         return $query->where('year', 'like', "%$year%");
+    }
+
+
+    public function filterByPrice($query, $price)
+    {
+        return $query->where('price', $price);
+    }
+
+
+    public function filterByStock($query, $stock)
+    {
+        return $query->where('stock', $stock);
     }
 }

@@ -6,14 +6,17 @@ use Illuminate\View\Component;
 
 class Filter extends Component
 {
+    public string $btnClass;
+
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($btnClass = 'btn-primary')
     {
-        //
+        $this->btnClass = $btnClass;
     }
 
     /**

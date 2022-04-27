@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ProductFilter;
 use App\Models\CartItem;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Rules\CartItemRule;
@@ -40,9 +41,12 @@ class ShopController extends Controller
     {
         $products = Product::filterBy()->paginate(10);
 
+        $categories = Category::with('products')->get();
+
         return view('shop.search', [
             'products' => $products,
-            'highlightedCategories' => Category::where('highlighted', true)->get(),
+            'categories' => $categories,
+            'highlightedCategories' => $categories->where('highlighted', true),
         ]);
     }
 
@@ -87,7 +91,7 @@ class ShopController extends Controller
     {
         $cookie = Cookie::get('cart');
 
-        $cart = json_decode($cookie, true);
+        $cart = json_decode($cookie, true) ?? [];
 
         $products = Product::whereIn('id', array_keys($cart))->get();
 
@@ -110,7 +114,7 @@ class ShopController extends Controller
     {
         $cookie = Cookie::get('cart');
 
-        $cart = json_decode($cookie, true);
+        $cart = json_decode($cookie, true) ?? [];
 
         if (array_key_exists($product->id, $cart)) $cart[$product->id]['quantity']++;
         else $cart[$product->id] = ['quantity' => 1,];
@@ -207,12 +211,35 @@ class ShopController extends Controller
         }
 
 
-        Cookie::queue('cart', $cart->toJson(), 60 * 24 * 30); // 30 days
+//        Cookie::queue('cart', $cart->toJson(), 60 * 24 * 30); // 30 days
 
-        return view('shop.checkout', [
-            'cartItems' => $cartItems,
-            'highlightedCategories' => Category::where('highlighted', true)->get(),
+        Cookie::expire('cart');
+
+//        return view('shop.checkout', [
+//            'cartItems' => $cartItems,
+//            'highlightedCategories' => Category::where('highlighted', true)->get(),
+//        ]);
+
+
+        $order = Order::create([
+            'user_id' => auth()->user()->id,
+            'status' => 'pending',
         ]);
+
+        foreach ($cartItems as $cartItem) {
+            $order->products()->attach($cartItem->product->id, [
+                'quantity' => $cartItem->quantity,
+                'price' => $cartItem->product->price,
+            ]);
+
+            $product = Product::find($cartItem->product->id);
+
+            $product->stock -= $cartItem->quantity;
+
+            $product->save();
+        }
+
+        return to_route('shop.index');
     }
 
 
@@ -227,4 +254,50 @@ class ShopController extends Controller
             'highlightedCategories' => Category::where('highlighted', true)->get(),
         ]);
     }
+
+
+    public function orders(User $user): View
+    {
+        $routeUser = $user;
+
+        Gate::allowIf(fn ($authUser) => $authUser->uuid === $routeUser->uuid);
+
+        $orders = $user->orders()->with('products')->paginate(10);
+
+        return view('shop.user.orders', [
+            'user' => $user,
+            'highlightedCategories' => Category::where('highlighted', true)->get(),
+            'orders' => $orders,
+        ]);
+    }
+
+
+    public function order(User $user, Order $order): View
+    {
+        $routeUser = $user;
+
+        Gate::allowIf(fn ($authUser) => $authUser->uuid === $routeUser->uuid);
+
+        $order = $user->orders()->with('products')->find($order->id);
+
+        $orderProducts = $order->products->pluck('pivot');
+
+        $quantities = $orderProducts->pluck('quantity');
+
+        $prices = $orderProducts->pluck('price');
+
+        $total = $quantities->zip($prices)->map(function ($item) {
+            return $item[0] * $item[1];
+        })->sum();
+
+        return view('shop.user.order', [
+            'user' => $user,
+            'highlightedCategories' => Category::where('highlighted', true)->get(),
+            'order' => $order,
+            'products' => $order->products,
+            'total' => $total,
+        ]);
+    }
+
+
 }

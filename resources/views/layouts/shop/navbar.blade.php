@@ -33,22 +33,23 @@
                     </ul>
                 </li>
                 <li><a href="{{ route('shop.cart') }}" class="nav-link px-2 link-dark"><i class="bi bi-basket me-1"></i>Cistella</a></li>
+
+                <x-button.filter btn-class="btn-outline-dark"></x-button.filter>
             </ul>
 
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input type="search" class="form-control" placeholder="Cercar" aria-label="Search">
-            </form>
+{{--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">--}}
+{{--                <input type="search" class="form-control" placeholder="Cercar" aria-label="Search">--}}
+{{--            </form>--}}
 
             @auth
                 <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://github.com/mdo.png" alt="mdo" class="rounded-circle" width="32" height="32">
+                        <strong>{{ auth()->user()->name }}</strong>
                     </a>
                     <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
-                        <li><a class="dropdown-item" href="#">{{ auth()->user()->name }}</a></li>
-                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ route('shop.user.profile', ['user' => auth()->user()->uuid ]) }}">Perfil</a></li>
+                        <li><a class="dropdown-item" href="{{ route('shop.user.orders', ['user' => auth()->user()->uuid ]) }}">Comandes</a></li>
                         @admin
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ route('admin.dashboard.index') }}">Administració</a></li>
@@ -61,6 +62,18 @@
                 <a href="{{ route('login') }}" class="btn btn-outline-dark btn-sm">Inicia la sessió</a>
             @endauth
 
+        </div>
+        <div class="collapse" id="collapsed_filters">
+            <div class="card card-body bg-light">
+                <x-form.form method="get" action="{{ route('shop.search') }}">
+                    <x-form.input-text id="title" name="title" label="Títol" placeholder="Títol"></x-form.input-text>
+                    <x-form.input-text id="author" name="author" label="Autor" placeholder="Autor"></x-form.input-text>
+                    <x-form.input-text id="year" name="year" label="Any" placeholder="Any"></x-form.input-text>
+                    <x-form.input-number id="price" name="price" label="Preu" placeholder="Preu" min="0" step="0.01"></x-form.input-number>
+                    <x-form.input-number id="stock" name="stock" label="Estoc" placeholder="Estoc" min="0"></x-form.input-number>
+                    {{--            <x-form.select id="status" name="status" label="Estat" placeholder="Estat" :options="$options"></x-form.select>--}}
+                </x-form.form>
+            </div>
         </div>
         <div>
             <ul class="nav col-12 col-lg-auto me-lg-auto mt-3 mb-2 justify-content-evenly mb-md-0">
@@ -76,4 +89,3 @@
         </div>
     </div>
 </header>
-
