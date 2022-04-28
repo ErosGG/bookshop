@@ -81,6 +81,9 @@
 {{--            <li><a class="dropdown-item" href="#">New project...</a></li>--}}
 {{--            <li><a class="dropdown-item" href="#">Settings</a></li>--}}
             <li><a class="dropdown-item" href="{{ route('shop.user.profile', ['user' => auth()->user()->uuid ]) }}">Perfil</a></li>
+            <li><a class="dropdown-item" href="{{ route('shop.user.orders', ['user' => auth()->user()->uuid ]) }}">Comandes</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ route('shop') }}">Botiga</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{ route('logout') }}">Finalitzar la sessió</a></li>
         </ul>
