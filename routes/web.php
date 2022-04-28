@@ -86,7 +86,7 @@ Route::get('/user/{user::uuid}/profile/edit', [ShopController::class, 'editProfi
     ->name('shop.user.profile.edit');
 
 
-Route::post('/user/{user}/profile/update', [ShopController::class, 'updateProfile'])
+Route::post('/user/{user:uuid}/profile/update', [ShopController::class, 'updateProfile'])
     ->middleware(['auth',])
     ->name('shop.user.profile.update');
 
@@ -94,6 +94,11 @@ Route::post('/user/{user}/profile/update', [ShopController::class, 'updateProfil
 Route::get('/user/{user:uuid}/orders', [ShopController::class, 'orders'])
     ->middleware(['auth',])
     ->name('shop.user.orders');
+
+
+Route::get('/user/{user:uuid}/orders/search', [ShopController::class, 'searchOrders'])
+    ->middleware(['auth',])
+    ->name('shop.user.orders.search');
 
 
 Route::get('/user/{user:uuid}/orders/{order}', [ShopController::class, 'order'])

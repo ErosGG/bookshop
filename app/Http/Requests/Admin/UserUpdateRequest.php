@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserUpdateRequest extends FormRequest
 {
@@ -13,7 +14,13 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check() ? auth()->user()->admin : false;
+        if (! auth()->check()) return false;
+
+        $routeUser = $this->user;
+
+        $authUser = auth()->user();
+
+        return $authUser->is($routeUser);
     }
 
     /**
@@ -24,7 +31,13 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:255'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore(auth()->user()->id)],
+            'email_confirmation' => ['required', 'same:email'],
+            'actual_password' => ['required', 'string', 'min:4', 'max:20', 'current_password'],
+            'new_password' => ['nullable', 'string', 'min:4', 'max:20', 'confirmed'],
+            'new_password_confirmation' => ['nullable', 'same:new_password'],
         ];
     }
 }

@@ -6,6 +6,17 @@
 
     <div class="container pt-5">
 
+        <div class="card card-body bg-dark">
+            <x-form.form method="get" action="{{ route('shop.user.orders.search', ['user' => $user->uuid]) }}">
+                <x-form.select id="status" name="status" label="Estat" placeholder="Estat" :options="$options"></x-form.select>
+                <x-form.input-text id="id" name="id" label="ID" placeholder="ID"></x-form.input-text>
+                <div class="text-light">
+                    <label class="me-3" for="created_at">Data comanda</label><input type="date" id="created_at" name="created_at"><br>
+                    <label class="me-3" for="updated_at">Data actualització</label><input type="date" id="updated_at" name="updated_at">
+                </div>
+            </x-form.form>
+        </div>
+
         <x-table.table>
             <x-table.head>
                 <x-table.tr>

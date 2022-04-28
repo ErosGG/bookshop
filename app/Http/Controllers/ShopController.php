@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\ProductFilter;
+use App\Http\Requests\Admin\UserUpdateRequest;
 use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Order;
@@ -12,9 +13,11 @@ use App\Rules\CartItemRule;
 use App\Rules\EnoughStock;
 use App\Rules\OrderedQuantity;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -256,6 +259,24 @@ class ShopController extends Controller
     }
 
 
+    public function updateProfile(User $user, UserUpdateRequest $request): RedirectResponse
+    {
+        $routeUser = $user;
+
+        Gate::allowIf(fn ($authUser) => $authUser->uuid === $routeUser->uuid);
+
+        $user->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('new_password')
+                ? Hash::make($request->new_password)
+                : $user->password,
+        ]);
+
+        return redirect()->back();
+    }
+
+
     public function orders(User $user): View
     {
         $routeUser = $user;
@@ -268,6 +289,24 @@ class ShopController extends Controller
             'user' => $user,
             'highlightedCategories' => Category::where('highlighted', true)->get(),
             'orders' => $orders,
+            'options' => collect(Order::getStatuses())->mapWithKeys(fn ($item, $key) => [$key => $item]),
+        ]);
+    }
+
+
+    public function searchOrders(User $user): View
+    {
+        $routeUser = $user;
+
+        Gate::allowIf(fn ($authUser) => $authUser->uuid === $routeUser->uuid);
+
+        $orders = Order::where('user_id', $user->id)->filterBy()->with('products')->paginate(10);
+
+        return view('shop.user.orders', [
+            'user' => $user,
+            'highlightedCategories' => Category::where('highlighted', true)->get(),
+            'orders' => $orders,
+            'options' => collect(Order::getStatuses())->mapWithKeys(fn ($item, $key) => [$key => $item]),
         ]);
     }
 
