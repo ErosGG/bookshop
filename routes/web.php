@@ -61,9 +61,9 @@ Route::post('/cart/add/{product}', [ShopController::class, 'addToCart'])->name('
 Route::get('cart/remove/{product}', [ShopController::class, 'removeFromCart'])->name('shop.cart.remove');
 
 
-//Route::get('/checkout', [ShopController::class, 'checkout'])
-//    ->middleware(['auth',])
-//    ->name('shop.checkout');
+Route::get('/checkout', [ShopController::class, 'checkout'])
+    ->middleware(['auth',])
+    ->name('shop.checkout');
 //
 //
 //Route::post('/checkout', [ShopController::class, 'payment'])
